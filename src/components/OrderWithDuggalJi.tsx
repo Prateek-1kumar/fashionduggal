@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { FaCheckCircle, FaRupeeSign, FaArrowRight } from 'react-icons/fa';
 import React from 'react';
+import OrderWithDuggalJiPayment from './OrderWithDuggalJiPayment';
 
 const priceList = [
   { label: 'Shirt', price: '₹800 – ₹2500' },
@@ -19,18 +20,30 @@ type OrderWithDuggalJiProps = {
 };
 
 const OrderWithDuggalJi: React.FC<OrderWithDuggalJiProps> = ({ onNext, onBack, onPay }) => {
+  const [step, setStep] = React.useState(0);
+
   const handleNext = (e: React.MouseEvent | React.KeyboardEvent) => {
     if ('key' in e && e.key !== 'Enter' && e.key !== ' ') return;
+    setStep(1);
     if (onNext) onNext();
   };
-  const handleBack = (e: React.MouseEvent | React.KeyboardEvent) => {
-    if ('key' in e && e.key !== 'Enter' && e.key !== ' ') return;
-    if (onBack) onBack();
+  const handleBack = (e?: React.MouseEvent | React.KeyboardEvent) => {
+    if (e && 'key' in e && e.key !== 'Enter' && e.key !== ' ') return;
+    if (step === 1) {
+      setStep(0);
+    } else if (onBack) {
+      onBack();
+    }
   };
   const handlePay = (e: React.MouseEvent | React.KeyboardEvent) => {
     if ('key' in e && e.key !== 'Enter' && e.key !== ' ') return;
     if (onPay) onPay();
   };
+
+  if (step === 1) {
+    return <OrderWithDuggalJiPayment onBack={handleBack} onPay={onPay} />;
+  }
+
   return (
     <motion.section
       className="w-full max-w-2xl mx-auto p-0 md:p-0 bg-[#14213d]/95 rounded-3xl shadow-2xl flex flex-col gap-10 border border-blue-900/30 overflow-hidden"
@@ -86,48 +99,15 @@ const OrderWithDuggalJi: React.FC<OrderWithDuggalJiProps> = ({ onNext, onBack, o
         </button>
         <button
           className="flex-1 py-3 px-6 bg-[#3a5ca8] hover:bg-[#4b6cb7] text-white font-semibold rounded-xl shadow-lg transition focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 flex items-center justify-center gap-2 text-lg"
-          aria-label="Pay Now"
+          aria-label="Next"
           tabIndex={0}
-          onClick={handlePay}
-          onKeyDown={handlePay}
+          onClick={handleNext}
+          onKeyDown={handleNext}
           type="button"
         >
-          <FaCheckCircle className="mr-2" aria-hidden="true" /> Pay Now
+          <FaArrowRight className="mr-2" aria-hidden="true" /> Next
         </button>
       </div>
-      <motion.div
-        className="bg-[#e9ecf5] border-l-4 border-blue-200 p-6 rounded-2xl flex flex-col gap-3 mx-4 md:mx-12 mb-8 shadow border border-blue-100"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3 }}
-        aria-label="Booking Fee and Price Info"
-      >
-        <div className="flex items-center gap-2">
-          <FaRupeeSign className="text-blue-500 text-xl" aria-hidden="true" />
-          <span className="font-bold text-blue-800 text-lg">Easy Booking – ₹999 (Adjusted in Final Bill)</span>
-        </div>
-        <p className="text-blue-900 text-sm">
-          To filter out non-serious entries, booking your slot requires a <span className="font-semibold">₹999 advance</span>, which will be fully adjusted in your final bill if you place an order.<br />
-          Once you book, we will contact you within 24 hours.<br />
-          When you order, your outfit will be shipped within 7–10 days.<br />
-          <span className="font-semibold">🌍 Worldwide shipping available.</span>
-        </p>
-        <p className="text-blue-900 text-sm font-semibold">💸 Price Transparency – Premium Quality Only</p>
-        <p className="text-blue-900 text-sm">We don’t do “cheapest.” We do worth it. Every piece is stitched with love, premium fabrics, and a perfect fit tailored to you.</p>
-        <div className="flex flex-col gap-1 mt-2">
-          <span className="font-semibold text-blue-800">Average Price Ranges:</span>
-          <ul className="list-none pl-0 text-blue-900 text-sm">
-            {priceList.map((item, idx) => (
-              <li key={idx} className="flex justify-between border-b border-blue-100 py-1">
-                <span>{item.label}:</span>
-                <span>{item.price}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <p className="text-blue-900 text-xs mt-2">💡 Prices vary depending on fabrics — from pure linen to Japanese suiting fabrics to Italian luxury textiles, we’ve got everything covered.</p>
-        <p className="text-blue-900 text-sm mt-2">So don’t hesitate — trust your guy and enjoy an outfit that speaks style, class, and comfort.</p>
-      </motion.div>
     </motion.section>
   );
 };

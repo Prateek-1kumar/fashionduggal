@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
-import { FaCheckCircle, FaRupeeSign, FaArrowRight } from 'react-icons/fa';
+import { FaCheckCircle, FaArrowRight } from 'react-icons/fa';
 import { MdLooksOne, MdLooksTwo, MdLooks3 } from 'react-icons/md';
 import React from 'react';
+import BookYourSlotFee from './BookYourSlotFee';
 
 
 type BookYourSlotProps = {
@@ -32,18 +33,24 @@ const valuePoints = [
 ];
 
 const BookYourSlot: React.FC<BookYourSlotProps> = ({ onNext, onPay, onBack }) => {
+  const [step, setStep] = React.useState(0);
+
   const handleNext = (e: React.MouseEvent | React.KeyboardEvent) => {
     if ('key' in e && e.key !== 'Enter' && e.key !== ' ') return;
-    if (onNext) onNext();
-  };
-  const handlePay = (e: React.MouseEvent | React.KeyboardEvent) => {
-    if ('key' in e && e.key !== 'Enter' && e.key !== ' ') return;
-    if (onPay) onPay();
+    setStep(1);
   };
   const handleBack = (e: React.MouseEvent | React.KeyboardEvent) => {
     if ('key' in e && e.key !== 'Enter' && e.key !== ' ') return;
-    if (onBack) onBack();
+    if (step === 1) {
+      setStep(0);
+    } else if (onBack) {
+      onBack();
+    }
   };
+
+  if (step === 1) {
+  return <BookYourSlotFee onBack={() => handleBack({ key: 'Enter' } as React.KeyboardEvent)} onPay={onPay} />;
+  }
 
   return (
     <motion.section
@@ -87,46 +94,15 @@ const BookYourSlot: React.FC<BookYourSlotProps> = ({ onNext, onPay, onBack }) =>
         </button>
         <button
           className="flex-1 py-3 px-6 bg-[#3a5ca8] hover:bg-[#4b6cb7] text-white font-semibold rounded-xl shadow-lg transition focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 flex items-center justify-center gap-2 text-lg"
-          aria-label="Pay Now"
+          aria-label="Next"
           tabIndex={0}
-          onClick={handlePay}
-          onKeyDown={handlePay}
+          onClick={handleNext}
+          onKeyDown={handleNext}
           type="button"
         >
-          <FaCheckCircle className="mr-2" aria-hidden="true" /> Pay Now
+          <FaArrowRight className="mr-2" aria-hidden="true" /> Next
         </button>
       </div>
-      <motion.div
-        className="bg-[#e9ecf5] border-l-4 border-blue-200 p-6 rounded-2xl flex flex-col gap-3 mx-4 md:mx-12 mb-8 shadow border border-blue-100"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3 }}
-        aria-label="Consulting Fee Information"
-      >
-        <div className="flex items-center gap-2">
-          <FaRupeeSign className="text-blue-500 text-xl" aria-hidden="true" />
-          <span className="font-bold text-blue-800 text-lg">Consulting Fee: ₹1599/-</span>
-        </div>
-        <p className="text-blue-900 text-sm">
-          To cut off non-serious inquiries and to give fair value to my time & effort, the consulting cost for personally connecting with me is <span className="font-semibold">₹1599/-</span>.<br />
-          I’ve kept it very reasonable considering the depth of effort I’ll put in.<br />
-          <span className="font-semibold">There is no session limit</span> — I’ll be connected with you for 15–20 days (daily or on alternate days) until you and I are both 100% satisfied with the results.
-        </p>
-        <p className="text-blue-900 text-sm">
-          Your satisfaction matters the most to me. I genuinely want to help, and I’ll always push my limits to make sure you get the best possible outcome.<br />
-          So don’t hesitate — trust me, it will be worth it.
-        </p>
-        <ul className="flex flex-col gap-1 mt-2">
-          <li className="flex items-center gap-2 text-blue-800">
-            <FaCheckCircle className="text-blue-500" aria-hidden="true" />
-            Once you make the payment, I will personally connect with you within 12 hours.
-          </li>
-          <li className="flex items-center gap-2 text-blue-800">
-            <FaCheckCircle className="text-blue-500" aria-hidden="true" />
-            Please drop your WhatsApp number and calling number after payment.
-          </li>
-        </ul>
-      </motion.div>
     </motion.section>
   );
 };
