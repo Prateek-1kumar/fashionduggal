@@ -32,29 +32,30 @@ const BookYourSlotFee: React.FC<BookYourSlotFeeProps> = ({ onBack, onPay }) => {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.1 }}
       >
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 mb-2">
           <FaRupeeSign className="text-blue-500 text-xl" aria-hidden="true" />
           <span className="font-bold text-blue-800 text-lg">Consulting Fee: ₹1599/-</span>
         </div>
-        <p className="text-blue-900 text-sm">
-          To cut off non-serious inquiries and to give fair value to my time & effort, the consulting cost for personally connecting with me is <span className="font-semibold">₹1599/-</span>.<br />
-          I’ve kept it very reasonable considering the depth of effort I’ll put in.<br />
-          <span className="font-semibold">There is no session limit</span> — I’ll be connected with you for 15–20 days (daily or on alternate days) until you and I are both 100% satisfied with the results.
-        </p>
-        <p className="text-blue-900 text-sm">
-          Your satisfaction matters the most to me. I genuinely want to help, and I’ll always push my limits to make sure you get the best possible outcome.<br />
-          So don’t hesitate — trust me, it will be worth it.
-        </p>
-        <ul className="flex flex-col gap-1 mt-2">
-          <li className="flex items-center gap-2 text-blue-800">
-            <FaCheckCircle className="text-blue-500" aria-hidden="true" />
-            Once you make the payment, I will personally connect with you within 12 hours.
+        <ul className="list-disc list-inside text-blue-900 text-sm space-y-2 pl-2">
+          <li>
+            <span className="font-semibold">One-time fee of ₹1599/-</span> to ensure only serious enquiries and to value both your and my time.
           </li>
-          <li className="flex items-center gap-2 text-blue-800">
-            <FaCheckCircle className="text-blue-500" aria-hidden="true" />
-            Please drop your WhatsApp number and calling number after payment.
+          <li>
+            <span className="font-semibold">No session limit:</span> I’ll be connected with you for <span className="font-semibold">15–20 days</span> (daily or alternate days) until we’re both fully satisfied with your results.
+          </li>
+          <li>
+            <span className="font-semibold">Personal attention:</span> You get direct, one-on-one guidance and support from me throughout the process.
+          </li>
+          <li>
+            <span className="font-semibold">Quick response:</span> After payment, I’ll personally connect with you within <span className="font-semibold">12 hours</span>.
+          </li>
+          <li>
+            <span className="font-semibold">Your satisfaction is my priority:</span> I am committed to helping you achieve the best possible outcome.
           </li>
         </ul>
+        <p className="text-blue-900 text-sm mt-2">
+          I genuinely want to help you and will always go the extra mile to ensure you get real value. <span className="font-semibold">Trust me, it will be worth it!</span>
+        </p>
       </motion.div>
       <div className="flex flex-col sm:flex-row gap-4 mt-2 px-6 md:px-12 pb-8">
         <button
