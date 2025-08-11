@@ -34,7 +34,7 @@ const LandingPage = () => {
   }
 
   return (
-  <div className="min-h-screen bg-gradient-to-br from-blue-950 via-blue-900 to-blue-800 flex flex-col justify-between">
+    <div className="min-h-screen bg-gradient-to-br from-blue-950 via-blue-900 to-blue-800 flex flex-col justify-between">
       {/* Hero Section */}
       <header className="w-full flex flex-col items-center pt-16 pb-8">
         <motion.div
@@ -63,10 +63,17 @@ const LandingPage = () => {
           <h1 className="text-5xl font-extrabold text-center text-gray-900 tracking-tight drop-shadow-lg">
             Fashion with Duggal Ji
           </h1>
-          <p className="text-xl text-white-700 text-center max-w-2xl mt-2">
-            Personalised menswear, expert guidance, and custom tailoring from a family with 20+ years of experience.
-            <span className="block text-base text-gray-500 mt-2">Your style, our legacy.</span>
-          </p>
+          <div className="relative w-full max-w-2xl overflow-hidden h-10 w-100 mt-2">
+            <div
+              className="absolute whitespace-nowrap text-xl text-blue-100 font-semibold animate-marquee left-(-100%) top-0 w-max"
+              aria-label="Personalised menswear, expert guidance, and custom tailoring from a family with 20+ years of experience."
+            >
+              Personalised menswear, expert guidance, and custom tailoring from a family with 20+ years of experience.
+            </div>
+          </div>
+          <span className="block text-base text-gray-500 mt-2">Your style, our legacy.</span>
+
+
         </motion.div>
       </header>
 
@@ -113,17 +120,19 @@ const LandingPage = () => {
                 onKeyDown={e => (e.key === 'Enter' || e.key === ' ') && handlePersonalised()}
                 type="button"
               >
-                1-on-1 Personalised Style Suggestions <FaArrowRight className="ml-1" aria-hidden="true" />
+                1-on-1 Personalised Style Suggestions
               </button>
             </div>
           </div>
-          <hr className="my-2 border-gray-200" />
-          <div className="text-center text-blue-200 text-base max-w-2xl mx-auto">
-            <span className="font-medium">⚡ Only 40 slots available. Bookings close when full.</span>
-          </div>
         </motion.section>
-       
       </main>
+      {/* Footer */}
+      <footer className="w-full mt-10">
+        <div className="max-w-3xl mx-auto rounded-2xl overflow-hidden border border-blue-900 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-950 px-6 py-6 flex flex-col items-center shadow-xl">
+          <p className="text-blue-100 text-base font-medium text-center">&copy; {new Date().getFullYear()} Fashion with Duggal Ji. All rights reserved.</p>
+          <p className="text-blue-200 text-xs text-center mt-1">Made with <span aria-label="love" role="img">💙</span> for style enthusiasts. <span className="ml-1">Premium. Personal. Timeless.</span></p>
+        </div>
+      </footer>
     </div>
   );
 };
