@@ -150,11 +150,11 @@ const BookYourSlot: React.FC<BookYourSlotProps> = ({ onNext, onPay, onBack }) =>
             </button>
             <button
               className="flex-1 py-3 px-6 bg-[#3a5ca8] hover:bg-[#4b6cb7] text-white font-semibold rounded-xl shadow-lg transition focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2"
-              aria-label="Continue to Payment"
+              aria-label="Confirm your slot"
               type="submit"
               disabled={isSubmitting}
             >
-              {isSubmitting ? 'Submitting...' : 'Continue to Payment'}
+              {isSubmitting ? 'Submitting...' : 'Confirm your slot'}
             </button>
           </div>
         </form>
